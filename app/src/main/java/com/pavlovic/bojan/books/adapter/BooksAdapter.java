@@ -1,7 +1,9 @@
 package com.pavlovic.bojan.books.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.jakewharton.picasso.OkHttp3Downloader;
 import com.pavlovic.bojan.books.R;
+import com.pavlovic.bojan.books.activity.BookDetailActivity;
 import com.pavlovic.bojan.books.activity.MainActivity;
 import com.pavlovic.bojan.books.model.Book;
 import com.squareup.picasso.Downloader;
@@ -34,6 +37,8 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
 
     private List<MainActivity.Book> books;
     private Context context;
+    private static final String TAG = BooksAdapter.class.getSimpleName();
+    private static final String TITLE = "BookTitle", AUTHOR = "BookAuthor", COVER = "BookCover";
 
     public BooksAdapter(List<MainActivity.Book> books, Context context){
         this.books = books;
@@ -103,9 +108,6 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
                 .error(R.drawable.book)
                 .fitCenter()
                 .into(holder.bookImage);
-
-        String imgurl = currentBook.cover_url;
-        String a;
     }
 
     @Override
@@ -113,17 +115,27 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
         return books.size();
     }
 
-    public static class BookViewHolder extends RecyclerView.ViewHolder{
+    public static class BookViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView bookTitle, bookAuthor;
         public ImageView bookImage;
 
         public BookViewHolder(View itemView) {
             super(itemView);
-//            booksLayout = itemView.findViewById(R.id.)
             bookImage = (ImageView) itemView.findViewById(R.id.imageView);
             bookTitle = (TextView) itemView.findViewById(R.id.bookTitleTextView);
             bookAuthor = (TextView) itemView.findViewById(R.id.bookAuthorTextView);
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            Log.d(TAG, "Clicked on: " + bookTitle.getText().toString());
+            Intent intent = new Intent(v.getContext(), BookDetailActivity.class);
+            intent.putExtra(TITLE, bookTitle.getText().toString());
+            intent.putExtra(AUTHOR, bookAuthor.getText().toString());
+//            intent.putExtra(COVER, bookImage.get)
+            v.getContext().startActivity(intent);
         }
     }
 }
