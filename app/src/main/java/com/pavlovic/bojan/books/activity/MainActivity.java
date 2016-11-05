@@ -1,5 +1,6 @@
 package com.pavlovic.bojan.books.activity;
 
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -25,12 +26,13 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
     public List<Book> books;
+    private Context applicationContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        applicationContext = getApplicationContext();
         books = new ArrayList<>();
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.books_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<BooksResponse> call, Response<BooksResponse> response) {
                 BooksResponse booksResponse = response.body();
                 books = booksResponse.getBooks();
-                recyclerView.setAdapter(new BooksAdapter(books));
+                recyclerView.setAdapter(new BooksAdapter(books, applicationContext));
             }
 
             @Override
