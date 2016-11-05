@@ -14,6 +14,7 @@ import com.pavlovic.bojan.books.rest.ApiClient;
 import com.pavlovic.bojan.books.rest.ApiInterface;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -23,15 +24,17 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    public Book book;
+    public List<Book> books;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        books = new ArrayList<>();
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.books_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         ApiInterface apiService = ApiClient.getClient().create(ApiInterface.class);
 
@@ -42,6 +45,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<BooksResponse> call, Response<BooksResponse> response) {
                 BooksResponse booksResponse = response.body();
+                books = booksResponse.getBooks();
+                recyclerView.setAdapter(new BooksAdapter(books));
             }
 
             @Override

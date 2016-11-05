@@ -13,10 +13,13 @@ import java.util.List;
 
 public class BooksResponse {
     List<MainActivity.Book> books;
-    int a = 0;
 
     public BooksResponse(){
         books = new ArrayList<MainActivity.Book>();
+    }
+
+    public List<MainActivity.Book> getBooks() {
+        return books;
     }
 
     public static BooksResponse parseJSON(String response) {

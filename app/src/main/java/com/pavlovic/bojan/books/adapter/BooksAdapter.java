@@ -23,13 +23,9 @@ import java.util.List;
 public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHolder> {
 
     private List<MainActivity.Book> books;
-    private int rowLayout;
-    private Context context;
 
-    public BooksAdapter(List<MainActivity.Book> books, int rowLayout, Context context) {
+    public BooksAdapter(List<MainActivity.Book> books){
         this.books = books;
-        this.rowLayout = rowLayout;
-        this.context  =context;
     }
 
     @Override
@@ -55,7 +51,6 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
 
     public static class BookViewHolder extends RecyclerView.ViewHolder{
 
-        LinearLayout booksLayout;
         public TextView bookTitle, bookAuthor;
         public ImageView bookImage;
 
