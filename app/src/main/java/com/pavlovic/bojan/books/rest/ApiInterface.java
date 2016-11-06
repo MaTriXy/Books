@@ -21,5 +21,8 @@ public interface ApiInterface {
     @GET("books/{id}")
     Call<BooksResponse> getSpecificBook(@Path("id") int id);
 
+    @GET("books/search/{searchterm}/0/20")
+    Call<BooksResponse> getBooksBySearchKeyword(@Path("searchterm") String searchterm);
+
     // Add more here !!!
 }

@@ -1,14 +1,22 @@
 package com.pavlovic.bojan.books.activity;
 
 import android.content.Context;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.TextView;
 
 import com.pavlovic.bojan.books.R;
 import com.pavlovic.bojan.books.adapter.BooksAdapter;
+import com.pavlovic.bojan.books.adapter.BooksAutocompleteAdapter;
 import com.pavlovic.bojan.books.model.Book;
 import com.pavlovic.bojan.books.model.BooksResponse;
 import com.pavlovic.bojan.books.rest.ApiClient;
@@ -34,6 +42,30 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         applicationContext = getApplicationContext();
         books = new ArrayList<>();
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowCustomEnabled(true);
+
+        LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View view = inflater.inflate(R.layout.action_bar_layout, null);
+        actionBar.setCustomView(view);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, new String[]{"Beograd","Nis", "Novi Sad", "Kragujevac", "Kraljevo"});
+        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
+        autoCompleteTextView.setThreshold(3);
+        autoCompleteTextView.setAdapter(new BooksAutocompleteAdapter(this));
+        autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("boki", ((TextView)view.findViewById(R.id.testView1)).getText().toString());
+            }
+        });
+
+//        autoCompleteTextView.setAdapter(adapter);
+
+
         final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.books_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
