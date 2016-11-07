@@ -1,8 +1,11 @@
 package com.pavlovic.bojan.books.activity;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.ConnectivityManager;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +26,7 @@ import com.pavlovic.bojan.books.model.BooksResponse;
 import com.pavlovic.bojan.books.rest.ApiClient;
 import com.pavlovic.bojan.books.rest.ApiInterface;
 
+import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     public List<Book> books;
     private Context applicationContext;
+    private AlertDialog alertDialog;
     private static final String TITLE = "BookTitle", AUTHOR = "BookAuthor", COVER_URL = "BookCover", DESCRIPTION = "Description", PUBLISHER = "Publisher", ISBN = "ISBN";
 
     @Override
@@ -42,6 +47,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         applicationContext = getApplicationContext();
+
+        if(!checkIfConnectedToInternet()){
+            showAlert();
+        }
+
         books = new ArrayList<>();
 
         ActionBar actionBar = getSupportActionBar();
@@ -181,6 +191,32 @@ public class MainActivity extends AppCompatActivity {
         public int getAuthorId(){
             return  id;
         }
+    }
+
+    // Check if connected.
+    private boolean checkIfConnectedToInternet(){
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if(connectivityManager.getActiveNetworkInfo() != null && connectivityManager.getActiveNetworkInfo().isAvailable() && connectivityManager.getActiveNetworkInfo().isConnected()){
+
+            connected = true;
+
+        }
+        return connected;
+    }
+
+    private void showAlert(){
+        alertDialog = new AlertDialog.Builder(this)
+                .setTitle("Not connected to internet")
+                .setMessage("Please Check Internet Connection")
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Close Application.
+                        MainActivity.this.finish();
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 
 }
