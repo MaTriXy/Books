@@ -4,7 +4,7 @@
     android:layout_height="wrap_content">
 
     <com.pavlovic.bojan.books.custom.DelayAutocompleteTextView
-        android:hint="Search Books"
+        android:hint="@string/hintSearchBooks"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"

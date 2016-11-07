@@ -32,7 +32,7 @@
         <ImageView
             android:layout_width="100dp"
             android:layout_height="100dp"
-            app:srcCompat="@mipmap/ic_launcher"
+            app:srcCompat="@drawable/image_placeholder"
             android:layout_marginRight="10dp"
             android:id="@+id/bookCoverImageView" />
 
