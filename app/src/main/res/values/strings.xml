@@ -2,4 +2,12 @@
     <string name="app_name">Books</string>
     <string name="bookTitlePlaceholder">Title</string>
     <string name="bookAuthorPlaceholder">Author</string>
+    <string name="detailActivityBookTitle">Book Title</string>
+    <string name="detailActivityBookDescription">Book Description</string>
+    <string name="detailActivityBookAuthor">Author</string>
+    <string name="detailActivityBookPublisher">Publisher</string>
+    <string name="detailActivityBookISBN">ISBN</string>
+    <string name="detailActivityAuthorLabel">Author:</string>
+    <string name="detailActivityPublisherLabel">Publisher:</string>
+    <string name="detailActivityISBNLabel">ISBN:</string>
 </resources>

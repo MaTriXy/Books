@@ -14,10 +14,10 @@
 
 
     <TextView
-        android:text="Book Title"
+        android:text="@string/detailActivityBookTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
+        android:textSize="25sp"
         android:layout_marginBottom="10dp"
         android:gravity="center_horizontal|center_vertical"
         android:id="@+id/bookTitleTextView" />
@@ -25,62 +25,104 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="5dp"
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="200dp"
-            android:layout_height="200dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
             app:srcCompat="@mipmap/ic_launcher"
-            android:layout_marginRight="5dp"
+            android:layout_marginRight="10dp"
             android:id="@+id/bookCoverImageView" />
 
-        <TextView
-            android:text="Book Description"
-            android:layout_width="0dp"
-            android:layout_weight="1"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/bookDescriptionDetailTextView" />
+
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="@string/detailActivityAuthorLabel"
+                    android:layout_width="70dp"
+                    android:gravity="left"
+                    android:layout_marginRight="5dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="@string/detailActivityBookAuthor"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bookAuthorTextView" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="@string/detailActivityPublisherLabel"
+                    android:layout_width="70dp"
+                    android:layout_marginRight="5dp"
+                    android:gravity="left"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="@string/detailActivityBookPublisher"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bookPublisherTextView" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:text="@string/detailActivityISBNLabel"
+                    android:layout_width="70dp"
+                    android:gravity="left"
+                    android:layout_marginRight="5dp"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="@string/detailActivityBookISBN"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/bookISBNTextView" />
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
 
     </LinearLayout>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:layout_marginTop="5dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:text="Author"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:gravity="center_horizontal"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:id="@+id/bookAuthorTextView" />
-
-        <TextView
-            android:text="Publisher"
-            android:layout_width="0dp"
-            android:gravity="center_horizontal"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:id="@+id/bookPublisherTextView" />
-
-
-    </LinearLayout>
-
+        android:layout_height="match_parent">
     <TextView
-    android:text="ISBN"
-    android:layout_width="match_parent"
-    android:gravity="center_horizontal"
-    android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:id="@+id/bookISBNTextView" />
+        android:text="@string/detailActivityBookDescription"
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:id="@+id/bookDescriptionDetailTextView" />
 
-
-
+    </ScrollView>
 
 
 </LinearLayout>
