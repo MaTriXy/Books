@@ -8,26 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.jakewharton.picasso.OkHttp3Downloader;
 import com.pavlovic.bojan.books.R;
 import com.pavlovic.bojan.books.activity.BookDetailActivity;
 import com.pavlovic.bojan.books.activity.MainActivity;
-import com.pavlovic.bojan.books.model.Book;
-import com.squareup.picasso.Downloader;
-import com.squareup.picasso.OkHttpDownloader;
-import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.List;
-
-import okhttp3.Cache;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.Response;
 
 /**
  * Created by X on 11/4/2016.
@@ -38,7 +26,7 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
     private List<MainActivity.Book> books;
     private Context context;
     private static final String TAG = BooksAdapter.class.getSimpleName();
-    private static final String TITLE = "BookTitle", AUTHOR = "BookAuthor", COVER = "BookCover";
+    private static final String TITLE = "BookTitle", AUTHOR = "BookAuthor", COVER_URL = "BookCover", DESCRIPTION = "Description", PUBLISHER = "Publisher", ISBN = "ISBN";
 
     public BooksAdapter(List<MainActivity.Book> books, Context context){
         this.books = books;
@@ -54,8 +42,12 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
     @Override
     public void onBindViewHolder(BookViewHolder holder, int position) {
         MainActivity.Book currentBook = books.get(position);
-        holder.bookAuthor.setText("author");
+        holder.bookAuthor.setText(currentBook.author.getAuthorFirstLastName());
         holder.bookTitle.setText(currentBook.title);
+        holder.bookDescription = currentBook.description;
+        holder.bookImageUrl = currentBook.cover_url;
+        holder.bookISBN = currentBook.isbn;
+        holder.bookPublisher = currentBook.publisher.getPublisherName();
 
 //        okhttp3.OkHttpClient okHttp3Client = new okhttp3.OkHttpClient();
 
@@ -119,12 +111,17 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
 
         public TextView bookTitle, bookAuthor;
         public ImageView bookImage;
+        public String bookImageUrl, bookISBN, bookPublisher, bookDescription;
 
         public BookViewHolder(View itemView) {
             super(itemView);
             bookImage = (ImageView) itemView.findViewById(R.id.imageView);
             bookTitle = (TextView) itemView.findViewById(R.id.bookTitleTextView);
             bookAuthor = (TextView) itemView.findViewById(R.id.bookAuthorTextView);
+            bookDescription = ((TextView) itemView.findViewById(R.id.bookDescriptionTextView)).getText().toString();
+            bookPublisher = ((TextView) itemView.findViewById(R.id.bookPublisherTextView)).getText().toString();
+            bookISBN = ((TextView) itemView.findViewById(R.id.bookIsbnTextView)).getText().toString();
+            bookImageUrl = ((TextView)itemView.findViewById(R.id.bookCoverImageUrlTextView)).getText().toString();
             itemView.setOnClickListener(this);
         }
 
@@ -134,6 +131,10 @@ public class BooksAdapter extends RecyclerView.Adapter<BooksAdapter.BookViewHold
             Intent intent = new Intent(v.getContext(), BookDetailActivity.class);
             intent.putExtra(TITLE, bookTitle.getText().toString());
             intent.putExtra(AUTHOR, bookAuthor.getText().toString());
+            intent.putExtra(DESCRIPTION, bookDescription);
+            intent.putExtra(COVER_URL, bookImageUrl);
+            intent.putExtra(PUBLISHER, bookPublisher);
+            intent.putExtra(ISBN, bookISBN);
 //            intent.putExtra(COVER, bookImage.get)
             v.getContext().startActivity(intent);
         }

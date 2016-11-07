@@ -10,21 +10,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pavlovic.bojan.books.R;
 import com.pavlovic.bojan.books.adapter.BooksAdapter;
 import com.pavlovic.bojan.books.adapter.BooksAutocompleteAdapter;
 import com.pavlovic.bojan.books.custom.DelayAutocompleteTextView;
-import com.pavlovic.bojan.books.model.Book;
 import com.pavlovic.bojan.books.model.BooksResponse;
 import com.pavlovic.bojan.books.rest.ApiClient;
 import com.pavlovic.bojan.books.rest.ApiInterface;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // TODO implement action when search item clicked
                 Log.d("boki", ((TextView)view.findViewById(R.id.testView1)).getText().toString());
             }
         });
@@ -90,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<BooksResponse> call, Throwable t) {
                 Log.e(TAG, t.toString());
+                Toast.makeText(MainActivity.this, "Loading Highlighted Books Failed", Toast.LENGTH_LONG).show();
             }
         });
 
@@ -108,14 +107,55 @@ public class MainActivity extends AppCompatActivity {
 
     public static class Book {
         public  int id;
-        public  String title, decription, cover_url, isbn;
+        public  String title, description, cover_url, isbn;
+        public Publisher publisher;
+        public Author author;
 
-        public Book(int id, String title, String decription, String cover_url, String isbn) {
+        public Book(int id, String title, String description, String cover_url, String isbn, Publisher publisher, Author author) {
             this.id = id;
             this.title = title;
-            this.decription = decription;
+            this.description = description;
             this.cover_url = cover_url;
             this.isbn = isbn;
+            this.publisher = publisher;
+            this.author = author;
+        }
+    }
+
+    public static class Publisher{
+        public int id;
+        public String name;
+
+        public Publisher(int id, String name){
+            this.id = id;
+            this.name = name;
+        }
+
+        public String getPublisherName(){
+            return name;
+        }
+
+        public int getPublisherId(){
+            return id;
+        }
+    }
+
+    public static class Author{
+        int id;
+        String first_name, last_name;
+
+        public Author(int id, String first_name, String last_name){
+            this.id = id;
+            this.first_name = first_name;
+            this.last_name = last_name;
+        }
+
+        public String getAuthorFirstLastName(){
+            return first_name + " " + last_name;
+        }
+
+        public int getAuthorId(){
+            return  id;
         }
     }
 

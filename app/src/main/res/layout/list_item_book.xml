@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:padding="10dp"
+    android:layout_marginBottom="10dp"
     android:height="200dp">
 
     <ImageView
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         app:srcCompat="@mipmap/ic_launcher"
         android:id="@+id/imageView"
         android:layout_weight="0" />
@@ -41,5 +41,33 @@
             android:layout_weight="1" />
 
     </LinearLayout>
+
+    <TextView
+        android:text=""
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:id="@+id/bookCoverImageUrlTextView"/>
+
+    <TextView
+        android:text=""
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:id="@+id/bookDescriptionTextView"/>
+
+    <TextView
+        android:text=""
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:id="@+id/bookPublisherTextView"/>
+
+    <TextView
+        android:text=""
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:id="@+id/bookIsbnTextView"/>
 
 </LinearLayout>
