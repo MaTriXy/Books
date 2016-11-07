@@ -122,7 +122,9 @@ public class BooksAutocompleteAdapter extends BaseAdapter implements Filterable 
             @Override
             public void onResponse(Call<BooksResponse> call, Response<BooksResponse> response) {
                 BooksResponse booksResponse = response.body();
-                searchedBooks = booksResponse.getBooks();
+                if(booksResponse != null){
+                    searchedBooks = booksResponse.getBooks();
+                }
             }
 
             @Override

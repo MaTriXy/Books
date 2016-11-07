@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
-    <AutoCompleteTextView
+    <com.pavlovic.bojan.books.custom.DelayAutocompleteTextView
         android:hint="Search Books"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:imeOptions="actionSearch"
+        android:imeOptions="flagNoExtractUi|actionSearch"
+        android:paddingRight="10dp"
         android:inputType="textAutoComplete|textAutoCorrect"
         android:id="@+id/autoCompleteTextView"
-        android:textColor="#FF0000"
+        android:textColor="#FFFFFF"
         android:layout_weight="1" />
 
-</LinearLayout>
+    <ProgressBar
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical|right"
+        android:layout_marginRight="10dp"
+        android:visibility="gone"
+        android:id="@+id/progressBar" />
+
+
+</FrameLayout>
