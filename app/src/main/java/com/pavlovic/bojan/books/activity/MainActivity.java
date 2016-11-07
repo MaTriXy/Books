@@ -1,6 +1,7 @@
 package com.pavlovic.bojan.books.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     public List<Book> books;
     private Context applicationContext;
+    private static final String TITLE = "BookTitle", AUTHOR = "BookAuthor", COVER_URL = "BookCover", DESCRIPTION = "Description", PUBLISHER = "Publisher", ISBN = "ISBN";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         books = new ArrayList<>();
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+//        actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowCustomEnabled(true);
 
         LayoutInflater inflater = (LayoutInflater) this.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -52,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
 //        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_dropdown_item_1line, new String[]{"Beograd","Nis", "Novi Sad", "Kragujevac", "Kraljevo"});
 //        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
-        DelayAutocompleteTextView autoCompleteTextView = (DelayAutocompleteTextView) findViewById(R.id.autoCompleteTextView);
+        final DelayAutocompleteTextView autoCompleteTextView = (DelayAutocompleteTextView) findViewById(R.id.autoCompleteTextView);
         autoCompleteTextView.setThreshold(3);
         autoCompleteTextView.setAdapter(new BooksAutocompleteAdapter(this));
         autoCompleteTextView.setLoadingIndicator((ProgressBar) findViewById(R.id.progressBar));
@@ -60,8 +62,30 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // TODO implement action when search item clicked
-                Log.d("boki", ((TextView)view.findViewById(R.id.testView1)).getText().toString());
+
+
+                String title = ((TextView)view.findViewById(R.id.title)).getText().toString();
+
+                autoCompleteTextView.setText(title);
+
+                String description = ((TextView)view.findViewById(R.id.description)).getText().toString();
+                String author = ((TextView)view.findViewById(R.id.author)).getText().toString();
+                String publisher = ((TextView)view.findViewById(R.id.publisher)).getText().toString();
+                String isbn = ((TextView)view.findViewById(R.id.isbn)).getText().toString();
+                String cover_url = ((TextView)view.findViewById(R.id.cover_url)).getText().toString();
+
+                Intent intent = new Intent(view.getContext(), BookDetailActivity.class);
+                intent.putExtra(TITLE, title);
+                intent.putExtra(AUTHOR, author);
+                intent.putExtra(COVER_URL, cover_url);
+                intent.putExtra(DESCRIPTION, description);
+                intent.putExtra(PUBLISHER, publisher);
+                intent.putExtra(ISBN, isbn);
+
+                startActivity(intent);
+
+
+//                Log.d("boki", ((TextView)view.findViewById(R.id.testView1)).getText().toString());
             }
         });
 

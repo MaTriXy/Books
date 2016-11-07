@@ -29,7 +29,7 @@ import retrofit2.Response;
 
 public class BooksAutocompleteAdapter extends BaseAdapter implements Filterable {
 
-    private List<String> testResults = new ArrayList<String>();
+//    private List<String> testResults = new ArrayList<String>();
     private List<MainActivity.Book> searchedBooks;
     private Context context;
     private static final String TAG = BooksAutocompleteAdapter.class.getSimpleName();
@@ -40,12 +40,12 @@ public class BooksAutocompleteAdapter extends BaseAdapter implements Filterable 
 
     @Override
     public int getCount() {
-        return testResults.size();
+        return searchedBooks.size();
     }
 
     @Override
-    public String getItem(int position) {
-        return testResults.get(position);
+    public MainActivity.Book getItem(int position) {
+        return searchedBooks.get(position);
     }
 
     @Override
@@ -53,13 +53,19 @@ public class BooksAutocompleteAdapter extends BaseAdapter implements Filterable 
         return position;
     }
 
+
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView == null){
             LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.list_item_test1, parent, false);
         }
-        ((TextView)(convertView.findViewById(R.id.testView1))).setText(getItem(position));
+        ((TextView)(convertView.findViewById(R.id.title))).setText(getItem(position).title);
+        ((TextView)(convertView.findViewById(R.id.description))).setText(getItem(position).description);
+        ((TextView)(convertView.findViewById(R.id.author))).setText(getItem(position).author.getAuthorFirstLastName());
+        ((TextView)(convertView.findViewById(R.id.publisher))).setText(getItem(position).publisher.getPublisherName());
+        ((TextView)(convertView.findViewById(R.id.isbn))).setText(getItem(position).isbn);
+        ((TextView)(convertView.findViewById(R.id.cover_url))).setText(getItem(position).cover_url);
 
         return convertView;
     }
@@ -73,11 +79,14 @@ public class BooksAutocompleteAdapter extends BaseAdapter implements Filterable 
                 if(constraint != null){
                     // Fetch data here !!!
                     getSearchedBooks(constraint.toString());
+
+                    /*
                     List<String> filteredResultsss = new ArrayList<String>();
 
                     for(MainActivity.Book bookItem : searchedBooks){
                         filteredResultsss.add(bookItem.title);
                     }
+                    */
 
 
 
@@ -95,8 +104,8 @@ public class BooksAutocompleteAdapter extends BaseAdapter implements Filterable 
 //                            filteredResultsss.add(item);
 //                    }
                     // TODO Implement checking for results whether letters are capitalized or not
-                    filterResults.values = filteredResultsss;
-                    filterResults.count = filteredResultsss.size();
+                    filterResults.values = searchedBooks;
+                    filterResults.count = searchedBooks.size();
                 }
                 return filterResults;
             }
@@ -104,7 +113,7 @@ public class BooksAutocompleteAdapter extends BaseAdapter implements Filterable 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 if(results != null && results.count > 0){
-                    testResults = (List<String>) results.values;
+//                    testResults = (List<String>) results.values;
                     notifyDataSetChanged();
                 }else{
                     notifyDataSetInvalidated();

@@ -10,4 +10,5 @@
     <string name="detailActivityAuthorLabel">Author:</string>
     <string name="detailActivityPublisherLabel">Publisher:</string>
     <string name="detailActivityISBNLabel">ISBN:</string>
+    <string name="searchItemTitlePlaceholder">Book Title</string>
 </resources>
